@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration debug="true" scan="false">
+  <contextName>jobbiest</contextName>
+
+  <!-- ======================================== -->
+  <!-- Append messages to the jobbiest log file -->
+  <!-- ======================================== -->
+  <appender name="FILE_ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${catalina.base}/logs/jobbiest.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- rollover daily or whenever the file size reaches 100MB -->
+      <fileNamePattern>${catalina.base}/logs/jobbiest-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+      <maxHistory>20</maxHistory>
+      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>100MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%t][%c{40}] %msg%n%exception{20}</pattern>
+    </encoder>
+  </appender>
+
+  <!-- ============================================================= -->
+  <!-- Root Logger for any logging not covered by the above loggers. -->
+  <!-- ============================================================= -->
+  <root level="WARN">
+    <appender-ref ref="FILE_ALL" />
+  </root>
+
+</configuration>

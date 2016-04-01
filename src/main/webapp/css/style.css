@@ -1,0 +1,131 @@
+body {
+  margin: 0px;
+}
+
+h1, h2, p {
+  font-family: Lato;
+  color: #3d3b3b;
+}
+
+p.form_label {
+  font-weight: bold;
+}
+
+p.error {
+  font-family: Lato;
+  color: #e03a2a;
+}
+
+a:link {
+  text-decoration: none;
+  color: #3d3b3b;
+}
+
+a:hover {
+  color: #2fb465;
+}
+
+a:visited {
+  color: #3d3b3b;
+}
+
+td {
+  vertical-align: top;
+}
+
+div.head {
+  padding: 20px;
+}
+
+div.menu {
+  display: inline-block;
+  left: 0px;
+  width: 200px;
+  padding: 5px;
+  height: 100%;
+  vertical-align: top;
+}
+
+div.tool-main {
+  display: inline-block;
+  border: 2px solid #3d3b3b;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  vertical-align: top;
+}
+
+div.tool-main-clear {
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  vertical-align: top;
+}
+
+div.tool-main-col {
+  border: 2px solid #3d3b3b;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  vertical-align: top;
+}
+
+div.container {
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+}
+
+div.div_row {
+  display: inline-block;
+  padding: 5px;
+  vertical-align: top;
+}
+
+div.div_col {
+  padding: 5px;
+}
+
+div.button {
+  font-family: Lato;
+  text-align: center;
+  color: #ffffff;
+  padding: 2px 5px 2px 5px;
+  margin: 2px;
+}
+
+div.button_show {
+  background-color: #3d3b3b;
+}
+
+div.button_hover {
+  background-color: #e03a2a;
+}
+
+div.button_row {
+  display: inline-block;
+}
+
+div.tool-table {
+  display: table;
+}
+
+div.tool-table-row {
+  display: table-row;
+}
+
+div.tool-table-col {
+  display: table-cell;
+  vertical-align: top;
+  margin: 2px;
+  padding: 2px;
+}
+
+input.codec_button {
+  width: 100%;
+}
+
+p.err_text {
+  color: #FF0000;
+}
