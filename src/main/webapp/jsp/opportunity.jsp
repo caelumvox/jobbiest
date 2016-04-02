@@ -16,7 +16,7 @@
               <table class="border: 0px; padding: 5px">
                 <tr>
                   <td style="padding: 5px">Address:</td>
-                  <td style="padding: 5px">${city}, ${state}</td>
+                  <td style="padding: 5px">${address}<br>${city}, ${state}</td>
                 </tr>
                 <tr>
                   <td style="padding: 5px">Industry:</td>

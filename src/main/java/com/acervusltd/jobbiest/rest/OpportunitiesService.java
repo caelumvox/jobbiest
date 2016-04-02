@@ -24,24 +24,24 @@ import com.acervusltd.jobbiest.model.Opportunity;
 public class OpportunitiesService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpportunitiesService.class);
-    
+
     @Autowired
     OpportunityTableGateway opportunityTableGateway;
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Map<String, Object>> getOpportunities(@PathParam("seekerId") Integer seekerId) {
         LOGGER.trace("Opportunities list requested.");
-        
+
         List<Map<String, Object>> returnList = new LinkedList<Map<String, Object>>();
-        
+
         if (seekerId == null) {
-        	LOGGER.warn("No seeker_id supplied.  Not returning result.");
+            LOGGER.warn("No seeker_id supplied.  Not returning result.");
         }
-        
+
         List<Opportunity> opportunityList = opportunityTableGateway.getOpportunityList(seekerId);
-        
-        for (Opportunity opportunity: opportunityList) {
+
+        for (Opportunity opportunity : opportunityList) {
             Map<String, Object> opportunityMap = new TreeMap<>();
             opportunityMap.put("opp_id", opportunity.getOpportunityId());
             opportunityMap.put("name", opportunity.getName());
@@ -51,7 +51,7 @@ public class OpportunitiesService {
             opportunityMap.put("state", opportunity.getState());
             returnList.add(opportunityMap);
         }
-        
+
         return returnList;
     }
 }

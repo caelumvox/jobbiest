@@ -9,7 +9,7 @@ public class JobbiestResourceConfig extends ResourceConfig {
 
     public JobbiestResourceConfig() {
         super();
-        
+
         register(OpportunityService.class);
         register(OpportunitiesService.class);
     }

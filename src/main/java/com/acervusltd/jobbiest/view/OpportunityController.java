@@ -16,18 +16,19 @@ public class OpportunityController {
 
     @Autowired
     OpportunityTableGateway opportunityTableGateway;
-    
-	@RequestMapping(value="/{opportunityId}", method = RequestMethod.GET)
-	public String getOpportunity(@PathVariable Integer opportunityId, Model model) {
-		Opportunity opportunity = opportunityTableGateway.getOpportunity(opportunityId);
-		
-		model.addAttribute("opp_id", opportunity.getOpportunityId());
-		model.addAttribute("name", opportunity.getName());
-		model.addAttribute("status", opportunity.getStatus());
-		model.addAttribute("industry", opportunity.getIndustry());
-		model.addAttribute("city", opportunity.getCity());
-		model.addAttribute("state", opportunity.getState());
-		
-		return "opportunity";
-	}
+
+    @RequestMapping(value = "/{opportunityId}", method = RequestMethod.GET)
+    public String getOpportunity(@PathVariable Integer opportunityId, Model model) {
+        Opportunity opportunity = opportunityTableGateway.getOpportunity(opportunityId);
+
+        model.addAttribute("opp_id", opportunity.getOpportunityId());
+        model.addAttribute("name", opportunity.getName());
+        model.addAttribute("status", opportunity.getStatus());
+        model.addAttribute("industry", opportunity.getIndustry());
+        model.addAttribute("address", opportunity.getAddress());
+        model.addAttribute("city", opportunity.getCity());
+        model.addAttribute("state", opportunity.getState());
+
+        return "opportunity";
+    }
 }

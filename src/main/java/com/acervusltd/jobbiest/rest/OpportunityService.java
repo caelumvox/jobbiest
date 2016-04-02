@@ -22,29 +22,30 @@ import com.acervusltd.jobbiest.model.Opportunity;
 public class OpportunityService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpportunityService.class);
-    
+
     @Autowired
     OpportunityTableGateway opportunityTableGateway;
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, Object> getOpportunity(@PathParam("opportunityId") Integer opportunityId) {
         LOGGER.trace("Opportunity with id %d requested.", opportunityId);
-        
+
         if (opportunityId == null) {
-        	LOGGER.warn("No opportunityId supplied.  Not returning result.");
+            LOGGER.warn("No opportunityId supplied.  Not returning result.");
         }
-        
+
         Opportunity opportunity = opportunityTableGateway.getOpportunity(opportunityId);
-        
+
         Map<String, Object> opportunityMap = new TreeMap<>();
         opportunityMap.put("opp_id", opportunity.getOpportunityId());
         opportunityMap.put("name", opportunity.getName());
         opportunityMap.put("status", opportunity.getStatus());
         opportunityMap.put("industry", opportunity.getIndustry());
+        opportunityMap.put("address", opportunity.getAddress());
         opportunityMap.put("city", opportunity.getCity());
         opportunityMap.put("state", opportunity.getState());
-        
-        return opportunityMap;    
+
+        return opportunityMap;
     }
 }
