@@ -22,12 +22,14 @@ public class OpportunityController {
         Opportunity opportunity = opportunityTableGateway.getOpportunity(opportunityId);
 
         model.addAttribute("opp_id", opportunity.getOpportunityId());
+        model.addAttribute("seeker_id", opportunity.getSeekerId());
         model.addAttribute("name", opportunity.getName());
         model.addAttribute("status", opportunity.getStatus());
         model.addAttribute("industry", opportunity.getIndustry());
         model.addAttribute("address", opportunity.getAddress());
         model.addAttribute("city", opportunity.getCity());
         model.addAttribute("state", opportunity.getState());
+        model.addAttribute("url", opportunity.getUrl());
 
         return "opportunity";
     }

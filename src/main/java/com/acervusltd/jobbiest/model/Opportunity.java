@@ -2,6 +2,7 @@ package com.acervusltd.jobbiest.model;
 
 public class Opportunity {
     private int opportunityId;
+    private int seekerId;
     private String name;
     private String industry;
     private String address;
@@ -17,6 +18,14 @@ public class Opportunity {
 
     public void setOpportunityId(int opportunityId) {
         this.opportunityId = opportunityId;
+    }
+
+    public int getSeekerId() {
+        return seekerId;
+    }
+
+    public void setSeekerId(int seekerId) {
+        this.seekerId = seekerId;
     }
 
     public String getName() {

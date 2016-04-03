@@ -43,6 +43,8 @@
     <constructor-arg ref="jobbiestJDBCTemplate" />
   </bean>
   
+  <bean id="eventTableGateway" class="com.acervusltd.jobbiest.db.EventTableGateway" />
+  
   <bean id="opportunityTableGateway" class="com.acervusltd.jobbiest.db.OpportunityTableGateway" />
 
  </beans>

@@ -35,11 +35,13 @@ public class OpportunityTableGateway {
         for (Map<String, Object> result : resultList) {
             Opportunity opportunity = new Opportunity();
             opportunity.setOpportunityId((int) result.get("opp_id"));
+            opportunity.setSeekerId((int) result.get("seeker_id"));
             opportunity.setName((String) result.get("name"));
             opportunity.setStatus((String) result.get("status"));
             opportunity.setIndustry((String) result.get("industry"));
             opportunity.setCity((String) result.get("city"));
             opportunity.setState((String) result.get("state"));
+            opportunity.setUrl((String) result.get("url"));
 
             opportunityList.add(opportunity);
         }
@@ -57,12 +59,14 @@ public class OpportunityTableGateway {
         // TODO: Refactor to use a row mapper
         Opportunity opportunity = new Opportunity();
         opportunity.setOpportunityId((int) resultMap.get("opp_id"));
+        opportunity.setSeekerId((int) resultMap.get("seeker_id"));
         opportunity.setName((String) resultMap.get("name"));
         opportunity.setStatus((String) resultMap.get("status"));
         opportunity.setIndustry((String) resultMap.get("industry"));
         opportunity.setAddress((String) resultMap.get("address"));
         opportunity.setCity((String) resultMap.get("city"));
         opportunity.setState((String) resultMap.get("state"));
+        opportunity.setUrl((String) resultMap.get("url"));
 
         return opportunity;
     }
