@@ -46,5 +46,7 @@
   <bean id="eventTableGateway" class="com.acervusltd.jobbiest.db.EventTableGateway" />
   
   <bean id="opportunityTableGateway" class="com.acervusltd.jobbiest.db.OpportunityTableGateway" />
-
+  
+  <bean id="seekerTableGateway" class="com.acervusltd.jobbiest.db.SeekerTableGateway" />
+  
  </beans>

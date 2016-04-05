@@ -1,9 +1,6 @@
 package com.acervusltd.jobbiest.rest;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,7 +17,7 @@ import com.acervusltd.jobbiest.db.EventTableGateway;
 import com.acervusltd.jobbiest.model.Event;
 
 @Component
-@Path("/events/{seekerId}/{opportunityId}")
+@Path("/events")
 public class EventsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EventsService.class);
@@ -29,8 +26,9 @@ public class EventsService {
     EventTableGateway eventTableGateway;
 
     @GET
+    @Path("/{seekerId}/{opportunityId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Map<String, Object>> getEvents(@PathParam("seekerId") Integer seekerId,
+    public List<Event> getEvents(@PathParam("seekerId") Integer seekerId,
             @PathParam("opportunityId") Integer opportunityId) {
         LOGGER.trace("Event list for seeker %d and opportunity %d requested.", seekerId, opportunityId);
 
@@ -43,17 +41,6 @@ public class EventsService {
 
         List<Event> eventList = eventTableGateway.getEventList(seekerId, opportunityId);
 
-        List<Map<String, Object>> eventMapList = new LinkedList<>();
-        for (Event event : eventList) {
-            Map<String, Object> eventMap = new TreeMap<>();
-            eventMap.put("event_id", event.getEventId());
-            eventMap.put("date", event.getDate());
-            eventMap.put("type", event.getType());
-            eventMap.put("text", event.getText());
-            
-            eventMapList.add(eventMap);
-        }
-
-        return eventMapList;
+        return eventList;
     }
 }
