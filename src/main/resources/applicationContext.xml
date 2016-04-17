@@ -20,7 +20,7 @@
     <property name="password" value="${db.jobbiest.password}" />
     <property name="initSQL"
       value="SET application_name = 'jobbiest'" />
-    <property name="defaultReadOnly" value="true" />
+    <property name="defaultReadOnly" value="false" />
     <property name="validationQuery" value="SELECT 1" />
     <property name="testOnBorrow" value="true" />
     <property name="initialSize" value="2" />

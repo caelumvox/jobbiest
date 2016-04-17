@@ -6,7 +6,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.acervusltd.jobbiest.model.Seeker;
@@ -18,9 +20,9 @@ public class SeekerTableGateway {
     @Autowired
     private NamedParameterJdbcTemplate jobbiestNamedParamJDBCTemplate;
 
-    private static final String SEEKER_QUERY = "select * from seeker where seeker_id = :seeker_id";
+    private static final String SEEKER_INSERT_QUERY = "select * from seeker where seeker_id = :seeker_id";
 
-    private static final String SEEKER_UPDATE_QUERY = "update seeker set username = :username, password=:password, email=:email, address=:address, city=:city, state=:state, firstname=:firstname, lastname=:lastname where seeker_id = :seeker_id";
+    private static final String SEEKER_UPDATE_QUERY = "update seeker set username = :username, password=:password, email=:email, address=:address, city=:city, state=:state, firstname=:firstname, lastname=:lastname where seeker_id = :seekerId";
 
     public Seeker getSeeker(int seekerId) {
         LOGGER.trace("Fetching seeker with id %d", seekerId);
@@ -28,13 +30,19 @@ public class SeekerTableGateway {
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("seeker_id", seekerId);
 
-        Seeker seeker = (Seeker) jobbiestNamedParamJDBCTemplate.queryForObject(SEEKER_QUERY, parameterMap,
+        Seeker seeker = (Seeker) jobbiestNamedParamJDBCTemplate.queryForObject(SEEKER_INSERT_QUERY, parameterMap,
                 new BeanPropertyRowMapper<Seeker>(Seeker.class));
 
         return seeker;
     }
 
     public void updateSeeker(Seeker seeker) {
-
+        try {
+            int result = jobbiestNamedParamJDBCTemplate.update(SEEKER_UPDATE_QUERY, new BeanPropertySqlParameterSource(seeker));
+            LOGGER.trace("Result of insert: %d", result);
+        } catch (DataAccessException dae) {
+            LOGGER.trace("Error attempting to update seeker with id [%d]: %s", seeker.getSeekerId(), dae);
+        }
+        
     }
 }
