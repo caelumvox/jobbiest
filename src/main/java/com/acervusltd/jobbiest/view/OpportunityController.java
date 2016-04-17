@@ -17,8 +17,13 @@ public class OpportunityController {
     @Autowired
     OpportunityTableGateway opportunityTableGateway;
 
+    @RequestMapping(method = RequestMethod.GET)
+    public String showCreateOpportunity() {
+        return "opportunity_create";
+    }
+    
     @RequestMapping(value = "/{opportunityId}", method = RequestMethod.GET)
-    public String getOpportunity(@PathVariable Integer opportunityId, Model model) {
+    public String showOpportunity(@PathVariable Integer opportunityId, Model model) {
         Opportunity opportunity = opportunityTableGateway.getOpportunity(opportunityId);
 
         model.addAttribute("opp_id", opportunity.getOpportunityId());

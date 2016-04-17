@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <%@include file="/html/includes.html" %>
   <title>jobbiest :: help</title>

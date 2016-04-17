@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <%@include file="/html/includes.html"%>
 <title>jobbiest :: profile</title>
@@ -11,6 +11,12 @@
     <div class="row">
       <div class="col-md-12 main">
         <form id="profile" class="form-horizontal">
+          <div class="form-group">
+            <div class="col-md-2"></div>
+            <div class="col-md-3">
+              <h1>profile</h1>
+            </div>
+          </div>
           <div class="form-group">
             <label for="inputFirstname" class="col-md-2 control-label">First Name</label>
             <div class="col-md-3">

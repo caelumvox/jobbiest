@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <%@include file="/html/includes.html" %>
   <title>jobbiest :: track your next move</title>
@@ -9,17 +9,19 @@
 <%@include file="/html/head.html" %>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-7">
-        <table id="opp_table" class="table table-striped">
-          <thead>
-            <tr>
-              <th>name</th>
-              <th>status</th>
-              <th>industry</th>
-              <th>location</th>
-            </tr>
-          </thead>
-        </table>
+      <div class="col-md-12 main">
+        <div class="col-md-7">
+          <table id="opp_table" class="table table-striped">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>status</th>
+                <th>industry</th>
+                <th>location</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
     </div>
   </div>
