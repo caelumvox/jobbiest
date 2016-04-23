@@ -46,6 +46,38 @@
               <h3 class="panel-title">Event Log</h3>
             </div>
             <div id="events_body" class="panel-body">
+              <div class="panel panel-success">
+                <form id="events_form" class="form-horizontal" method="POST">
+                  <div class="form-group">
+                    <div class="col-md-offset-2 col-md-6">
+                      <h3>Add Event</h3>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEventDateTime" class="col-md-2 control-label">Date/Time</label>
+                    <div class="col-md-6">
+                      <input id="add_event_datetime" name="date" type="datetime-local" class="form-control" value="1970-01-01T00:00:00">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEventTitle" class="col-md-2 control-label">Title</label>
+                    <div class="col-md-6">
+                      <input  id="add_event_title" type="text" name="type" class="form-control" placeholder="OnSite interview - Initech">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEventDescription" class="col-md-2 control-label">Description</label>
+                    <div class="col-md-6">
+                      <textarea id="add_event_description" name="text" class="form-control" rows="3" placeholder="Met with Bill Lumburgh, VP.  Interesting conversation."></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-offset-2 col-md-6">
+                      <button id="add_event_btn" type="button" class="btn btn-primary">Add Event</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -54,54 +86,89 @@
   </div>
   <%@include file="/html/footer_includes.html"%>
   <script type="text/javascript">
-  $(document).ready(function(){
-      var seeker_id = ${seeker_id};
-	  var opp_id = ${opp_id};
-      var status = "${status}";
-      var status_label = $("<span></span>");
-      
-      if (status == "INCLUDED") {
-    	  status_label.addClass("label").addClass("label-success").text("Included");
-      } else if (status == "EXCLUDED") {
-    	  status_label.addClass("label").addClass("label-danger").text("Excluded");
-      }
-	  $("#status").append(status_label);
-	  
-      $.ajax({
-          method:"GET",
-          url:"/jobbiest/rest/events/" + seeker_id + "/" + opp_id,
-          dataType:"json",
-          contentType:"application/json"
-     }).done(function(event_list){
-         events_body = $("#events_body");
-         
-         event_list.sort(function(a, b) {
-             // Subtract epoch dates, descending.
-             return b.date - a.date; 
-         });
-         
-         $.each(event_list, function(index, event) {
-             var event_id = event['event_id'];
-             var event_date = new Date(event['date']);
-             var date_str = event_date.getFullYear() + '-' +
-                 ("0" + (event_date.getMonth()+1)).slice(-2) + '-' + 
-                 ("0" + event_date.getDate()).slice(-2) + ' ' +
-                 ("0" + event_date.getHours()).slice(-2) + ':' +
-                 ("0" + event_date.getMinutes()).slice(-2) + ':' +
-                 ("0" + event_date.getSeconds()).slice(-2);
-             
-             var event_title = $("<h3></h3>").append(date_str + " - " + event['type']);
-             var event_heading = $("<div></div>").addClass("panel-heading").append(event_title);
-             var event_body = $("<div></div>").addClass("panel-body").text(event['text']);
-             var event_panel = $("<div></div>").addClass("panel").addClass("panel-success");
-             event_panel.append(event_heading).append(event_body);
-           
-             events_body.append(event_panel);
-         });
-     }).fail(function(err){
-          console.log(err);
-     });
-  });
-  </script>
+
+    function leftPad(val, chr, len) {
+        var result = val;
+        if (val.length < len) {
+            result = Array(len - val.length + 1).join(chr) + val;
+        }
+        return result;
+    }
+    
+    function dateToString(date) {
+        return String(date.getFullYear()) + "-" + 
+            leftPad(String(date.getMonth()+1), "0", 2) + "-" + 
+            leftPad(String(date.getDate()), "0", 2) + "T" + 
+            leftPad(String(date.getHours()), "0", 2) + ":" + 
+            leftPad(String(date.getMinutes()), "0", 2);
+    }
+  
+    $(document).ready(function() {
+        var seeker_id = ${seeker_id};
+        var opp_id = ${opp_id};
+        var status = "${status}";
+        var status_label = $("<span></span>");
+
+        var cur_datetime_str = dateToString(new Date());
+        $("#add_event_datetime").val(cur_datetime_str);
+
+        if (status == "INCLUDED") {
+            status_label.addClass("label").addClass(
+                    "label-success").text("Included");
+        } else if (status == "EXCLUDED") {
+            status_label.addClass("label").addClass(
+                    "label-danger").text("Excluded");
+        } else if (status == "ACTIVE") {
+            status_label.addClass("label").addClass(
+                    "label-primary").text("Active");
+        }
+        $("#status").append(status_label);
+
+        $.ajax({
+            method : "GET",
+            url : "/jobbiest/rest/events/" + seeker_id + "/" + opp_id,
+            dataType : "json",
+            contentType : "application/json"
+        }).done(function(event_list) {
+            events_body = $("#events_body");
+            event_list.sort(function(a, b) {
+                // Subtract epoch dates, descending.
+                return b.date - a.date;
+            });
+            $.each(event_list, function(index, event) {
+                var event_id = event['event_id'];
+                var event_date = new Date(event['date']);
+                var date_str = dateToString(event_date);
+                    
+                var event_title = $("<h3></h3>").append(date_str + " - " + event['type']);
+                var event_heading = $("<div></div>").addClass("panel-heading").append(event_title);
+                var event_body = $("<div></div>").addClass("panel-body").text(event['text']);
+                var event_panel = $("<div></div>").addClass("panel").addClass("panel-success");
+                event_panel.append(event_heading).append(event_body);
+
+                events_body.append(event_panel);
+            });
+        }).fail(function(err) {
+            console.log(err);
+        });
+        
+        // Add Event button handler
+        $("#add_event_btn").click(function(event){
+            // Dispatch event to REST interface
+            var posting = $.post("/jobbiest/rest/event/" + seeker_id + "/" + opp_id,
+                $("#events_form").serialize());
+            posting.done(function(data){
+                // Receive acknowledgement
+                var eventId = data.eventId;  
+                // Append to existing events.
+                
+                // Clear out existing form.
+                $("#add_event_title").val("");
+                $("#add_event_description").val("");
+            });
+            
+        });
+    });
+        </script>
 </body>
 </html>

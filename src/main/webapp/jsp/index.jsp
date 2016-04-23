@@ -10,7 +10,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-7">
-        <h1>Welcome to jobbiest!  Track your job hunt now.</h1>
+        <h1>jobbiest - might as well, right?</h1>
       </div>
     </div>
   </div>

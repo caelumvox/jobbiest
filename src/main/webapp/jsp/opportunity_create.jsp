@@ -127,6 +127,7 @@
             <div class="col-md-3">
              <select class="form-control" name="status" id="inputStatus">
                <option>Included</option>
+               <option>Active</option>
                <option>Excluded</option>
              </select>
             </div>

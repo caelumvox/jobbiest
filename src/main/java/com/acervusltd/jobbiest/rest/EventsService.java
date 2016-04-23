@@ -21,7 +21,7 @@ import com.acervusltd.jobbiest.model.Event;
 public class EventsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EventsService.class);
-
+    
     @Autowired
     EventTableGateway eventTableGateway;
 

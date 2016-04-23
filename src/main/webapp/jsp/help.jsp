@@ -7,6 +7,13 @@
 </head>
 <body>
 <%@include file="/html/head.html" %>
-Little help here!
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-7">
+        <h1>little help here</h1>
+      </div>
+    </div>
+  </div>
+<%@include file="/html/footer_includes.html" %>
 </body>
 </html>

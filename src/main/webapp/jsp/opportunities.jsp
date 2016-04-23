@@ -58,8 +58,8 @@
             	  status_label.addClass("label-success").text("Included");
               } else if (status_val == "EXCLUDED") {
             	  status_label.addClass("label-danger").text("Excluded");
-              } else {
-            	  status_label.addClass("label-danger").text(status_val);
+              } else if (status_val == "ACTIVE"){
+            	  status_label.addClass("label-primary").text("Active");
               }
         	  var status_col = $("<td></td>").append(status_label);
         	  
