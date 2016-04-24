@@ -10,37 +10,31 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 main">
-        <div id="summary" class="col-md-4">
+        <div id="summary" class="col-md-3">
           <div class="panel panel-default">
             <div class="panel-body">
-              <h1>${name}</h1>
-              <table class="border: 0px; padding: 5px">
-                <tr>
-                  <td style="padding: 5px">URL:</td>
-                  <td id="url" style="padding: 5px">
-                    <a href="${url}">${url}</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 5px; vertical-align: top">Address:</td>
-                  <td style="padding: 5px">
-                    <p>${address}</p>
-                    <p>${city}, ${state}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 5px">Industry:</td>
-                  <td style="padding: 5px">${industry}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 5px">Status:</td>
-                  <td id="status" style="padding: 5px"></td>
-                </tr>
-              </table>
+              <h1 id="name">${name}</h1>
+              <dl>
+                <dt>URL</dt>
+                <dd id="url"><a href="${url}">${url}</a>&nbsp;</dd>
+              </dl>
+              <dl>
+                <dt>Address</dt>
+                <dd id="address">${address} &nbsp;</dd>
+                <dd id="citystate">${city}, ${state} ${zip} &nbsp;</dd>
+              </dl>
+              <dl>
+                <dt>Industry</dt>
+                <dd id="industry">${industry} &nbsp;</dd>
+              </dl>
+              <dl>
+                <dt>Status</dt>
+                <dd id="status"></dd>
+              </dl>
             </div>
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">Event Log</h3>
@@ -86,6 +80,24 @@
   </div>
   <%@include file="/html/footer_includes.html"%>
   <script type="text/javascript">
+    var edit_state_map = {};
+    var seeker_id = ${seeker_id};
+    var opp_id = ${opp_id};
+    var status = "${status}";
+    var status_enum_to_text_map =  {
+        "INCLUDED" : {
+            "label_type":"label-success", 
+            "label_string":"Included",
+        },
+        "ACTIVE" : {
+            "label_type":"label-primary", 
+            "label_string":"Active"
+        },
+        "EXCLUDED" : {
+            "label_type":"label-danger", 
+            "label_string":"Excluded"
+        }
+    };
 
     function leftPad(val, chr, len) {
         var result = val;
@@ -102,27 +114,110 @@
             leftPad(String(date.getHours()), "0", 2) + ":" + 
             leftPad(String(date.getMinutes()), "0", 2);
     }
-  
-    $(document).ready(function() {
-        var seeker_id = ${seeker_id};
-        var opp_id = ${opp_id};
-        var status = "${status}";
-        var status_label = $("<span></span>");
+    
+    function open_inline_edit(event, name, dd_field_name) {
+        edit_state_map[name]["editing"] = true;
+        var text = $(dd_field_name).text();
+        $(dd_field_name).empty();
+        
+        var form_inline = $("<form></form>").addClass("form-inline");
+        
+        // TODO: for Status, this needs to be a dropdown.
+        var edit_box = $("<input></input").addClass("form-control").attr("type","text").attr("id","value_" + name);
+        edit_box.attr("name","value_" + name).attr("value", text);
+        form_inline.append(edit_box);
+        
+        var ok_btn = $("<span></span>").attr("type","submit").addClass("glyphicon").addClass("glyphicon-ok-circle");
+        ok_btn.attr("aria-hidden","true").attr("style", "float:right");
+        ok_btn.click(function(event) {
+            var value = $("#value_" + name).val();
+            ok_inline_edit(event, name, dd_field_name, value);
+            return false;
+        });
+        
+        var cancel_btn = $("<span></span>").attr("type","submit").addClass("glyphicon").addClass("glyphicon-remove-circle");
+        cancel_btn.attr("aria-hidden","true").attr("style", "float:right; margin-left: 2px");
+        cancel_btn.click(function(event) {
+            close_inline_edit(event, name, dd_field_name);
+            return false;
+        });
+        
+        form_inline.append(cancel_btn);
+        form_inline.append(ok_btn);
+        
+        $(dd_field_name).append(form_inline);
+    }
+    
+    function ok_inline_edit(event, name, dd_field_name, value) {
+        var data_string = name + "=" + value;
+        $.ajax({
+            method : "POST",
+            url : "/jobbiest/rest/opportunity/" + opp_id,
+            // FIXME: For some reason, jquery is sending 'name' literal
+            //data : {name : value},
+            data : data_string,
+            mimeType : "application/x-www-form-urlencoded",
+        }).fail(function(err) {
+            console.log(err);
+        });
+        
+        edit_state_map[name]["orig_val"] = value;
 
+        close_inline_edit(event, name, dd_field_name);
+    }
+    
+    function close_inline_edit(event, name, dd_field_name) {
+        edit_state_map[name]["editing"] = false;
+        $(dd_field_name).empty();
+        
+        if (name == "url") {
+            var anchor = $("<a></a>");
+            var link_string = edit_state_map[name]["orig_val"];
+            anchor.attr("href",link_string).text(link_string);
+            $(dd_field_name).append(anchor);
+        } else if (name == "status") {
+            set_status_label(edit_state_map[name]["orig_val"]);
+        } else {
+            $(dd_field_name).text(edit_state_map[name]["orig_val"]);
+        }
+    }
+
+    function register_opp_edit_behaviors(name, value) {
+        var dd_field_name = "#" + name;
+
+        edit_state_map[name] = {
+            "orig_val" : value,
+            "editing" : false
+        };
+        
+        $(dd_field_name).mouseenter(function() {
+            if (edit_state_map[name]["editing"] == false) {
+                var edit_industry = $("<span></span>").addClass("glyphicon").addClass("glyphicon-pencil");
+                edit_industry.attr("id","edit_" + name).attr("aria-hidden","true").attr("style","float:right");
+                edit_industry.click(function(event) {
+                    open_inline_edit(event, name, dd_field_name);
+                });
+                $(dd_field_name).append(edit_industry);
+            }
+        });
+
+        $(dd_field_name).mouseleave(function() {
+            $("#edit_" + name).remove();
+        });        
+    }
+    
+    function set_status_label(status) {
+        var status_label = $("<span></span>").addClass("label");
+        status_label.addClass(status_enum_to_text_map[status].label_type);
+        status_label.text(status_enum_to_text_map[status].label_string);
+        $("#status").append(status_label);
+    }
+
+    $(document).ready(function() {
         var cur_datetime_str = dateToString(new Date());
         $("#add_event_datetime").val(cur_datetime_str);
 
-        if (status == "INCLUDED") {
-            status_label.addClass("label").addClass(
-                    "label-success").text("Included");
-        } else if (status == "EXCLUDED") {
-            status_label.addClass("label").addClass(
-                    "label-danger").text("Excluded");
-        } else if (status == "ACTIVE") {
-            status_label.addClass("label").addClass(
-                    "label-primary").text("Active");
-        }
-        $("#status").append(status_label);
+        set_status_label(status);
 
         $.ajax({
             method : "GET",
@@ -168,6 +263,13 @@
             });
             
         });
+        
+        // Register icon callback.
+        register_opp_edit_behaviors("name", "${name}");
+        register_opp_edit_behaviors("url", "${url}");
+        register_opp_edit_behaviors("address", "${address}");
+        register_opp_edit_behaviors("industry", "${industry}");
+        register_opp_edit_behaviors("status", "${status}");
     });
         </script>
 </body>

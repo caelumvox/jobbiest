@@ -90,6 +90,50 @@ public class OpportunityService {
         return opportunity;
     }
 
+    @POST
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{opportunityId}")
+    public void postOpportunityParameter(@PathParam("opportunityId") Integer opportunityId,
+            MultivaluedMap<String, String> formParams) {
+        LOGGER.trace("Creating new opportunity.");
+
+        for (String key : formParams.keySet()) {
+            String value = formParams.getFirst(key);
+
+            if (value != null) {
+                switch (key) {
+                    case NAME_KEY:
+                        opportunityTableGateway.updateOpportunityName(opportunityId, value);
+                        break;
+                    case INDUSTRY_KEY:
+                        opportunityTableGateway.updateOpportunityIndustry(opportunityId, value);
+                        break;
+                    case ADDRESS_KEY:
+                        opportunityTableGateway.updateOpportunityAddress(opportunityId, value);
+                        break;
+                    case CITY_KEY:
+                        //opportunity.setCity(value);
+                        break;
+                    case STATE_KEY:
+                        //opportunity.setState(value);
+                        break;
+                    case ZIP_KEY:
+                        //opportunity.setZip(value);
+                        break;
+                    case URL_KEY:
+                        opportunityTableGateway.updateOpportunityUrl(opportunityId, value);
+                        break;
+                    case STATUS_KEY:
+                        opportunityTableGateway.updateOpportunityStatus(opportunityId, value);
+                        break;
+                    default:
+                        LOGGER.warn("Unidentified parameter %s, ignoring.", key);
+                }
+            }
+        }
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{opportunityId}")
