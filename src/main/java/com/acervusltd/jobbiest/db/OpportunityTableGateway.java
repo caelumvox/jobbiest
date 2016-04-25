@@ -34,11 +34,17 @@ public class OpportunityTableGateway {
             "update opportunity set industry = :industry where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_UPDATE_ADDRESS_QUERY =
             "update opportunity set address = :address where opportunity_id = :opportunity_id";
+    private static final String OPPORTUNITY_UPDATE_CITY_QUERY = 
+            "update opportunity set city = :city where opportunity_id = :opportunity_id";
+    private static final String OPPORTUNITY_UPDATE_STATE_QUERY = 
+            "update opportunity set state = :state where opportunity_id = :opportunity_id";
+    private static final String OPPORTUNITY_UPDATE_ZIP_QUERY = 
+            "update opportunity set zip = :zip where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_UPDATE_URL_QUERY =
             "update opportunity set url = :url where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_UPDATE_STATUS_QUERY =
             "update opportunity set status = :status where opportunity_id = :opportunity_id";
-    
+
     public List<Opportunity> getOpportunityList(int seekerId) {
         LOGGER.trace("Fetching opportunity list for seeker %d", seekerId);
 
@@ -116,6 +122,45 @@ public class OpportunityTableGateway {
         parameterMap.put("address", address);
 
         int result = jobbiestNamedParamJDBCTemplate.update(OPPORTUNITY_UPDATE_ADDRESS_QUERY,
+                parameterMap);
+
+        return result == 1 ? true : false;
+    }
+    
+    public boolean updateOpportunityCity(int opportunityId, String city) {
+        LOGGER.trace("Updating opportunity with id %d city to %s", opportunityId, city);
+
+        Map<String, Object> parameterMap = new HashMap<>();
+        parameterMap.put("opportunity_id", opportunityId);
+        parameterMap.put("city", city);
+
+        int result = jobbiestNamedParamJDBCTemplate.update(OPPORTUNITY_UPDATE_CITY_QUERY,
+                parameterMap);
+
+        return result == 1 ? true : false;
+    }
+    
+    public boolean updateOpportunityState(int opportunityId, String state) {
+        LOGGER.trace("Updating opportunity with id %d state to %s", opportunityId, state);
+
+        Map<String, Object> parameterMap = new HashMap<>();
+        parameterMap.put("opportunity_id", opportunityId);
+        parameterMap.put("state", state);
+
+        int result = jobbiestNamedParamJDBCTemplate.update(OPPORTUNITY_UPDATE_STATE_QUERY,
+                parameterMap);
+
+        return result == 1 ? true : false;
+    }
+    
+    public boolean updateOpportunityZip(int opportunityId, String zip) {
+        LOGGER.trace("Updating opportunity with id %d zip to %s", opportunityId, zip);
+
+        Map<String, Object> parameterMap = new HashMap<>();
+        parameterMap.put("opportunity_id", opportunityId);
+        parameterMap.put("zip", zip);
+
+        int result = jobbiestNamedParamJDBCTemplate.update(OPPORTUNITY_UPDATE_ZIP_QUERY,
                 parameterMap);
 
         return result == 1 ? true : false;

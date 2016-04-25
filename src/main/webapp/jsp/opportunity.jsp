@@ -21,7 +21,7 @@
               <dl>
                 <dt>Address</dt>
                 <dd id="address">${address} &nbsp;</dd>
-                <dd id="citystate">${city}, ${state} ${zip} &nbsp;</dd>
+                <dd id="citystatezip">${city}, ${state} ${zip} &nbsp;</dd>
               </dl>
               <dl>
                 <dt>Industry</dt>
@@ -117,20 +117,58 @@
     
     function open_inline_edit(event, name, dd_field_name) {
         edit_state_map[name]["editing"] = true;
-        var text = $(dd_field_name).text();
         $(dd_field_name).empty();
         
         var form_inline = $("<form></form>").addClass("form-inline");
-        
-        // TODO: for Status, this needs to be a dropdown.
-        var edit_box = $("<input></input").addClass("form-control").attr("type","text").attr("id","value_" + name);
-        edit_box.attr("name","value_" + name).attr("value", text);
-        form_inline.append(edit_box);
+
+        if (name == "citystatezip") {
+            var edit_city_box = $("<input></input").addClass("form-control").attr("type","text").attr("id","value_city");
+            edit_city_box.attr("name","value_city").attr("value", edit_state_map[name]["orig_val"]["city"]);
+            form_inline.append(edit_city_box);        
+            
+            var edit_state_box = $("<input></input").addClass("form-control").attr("type","text").attr("id","value_state");
+            edit_state_box.attr("name","value_state").attr("value", edit_state_map[name]["orig_val"]["state"]);
+            form_inline.append(edit_state_box);        
+            
+            var edit_zip_box = $("<input></input").addClass("form-control").attr("type","text").attr("id","value_zip");
+            edit_zip_box.attr("name","value_zip").attr("value", edit_state_map[name]["orig_val"]["zip"]);
+            form_inline.append(edit_zip_box);
+        } else if (name == "status") {
+            var select_box = $("<select></select>").attr("id","value_status");
+            for (var key in status_enum_to_text_map) {
+                if (status_enum_to_text_map.hasOwnProperty(key)) {
+                    var option = $("<option></option>").attr("value",key);
+                    option.text(status_enum_to_text_map[key].label_string);
+                    if (edit_state_map[name]["orig_val"] == key) {
+                        option.attr("selected", "true");
+                    }
+                    select_box.append(option);
+                }
+            }
+            form_inline.append(select_box);
+        } else {
+            var edit_box = $("<input></input").addClass("form-control").attr("type","text").attr("id","value_" + name);
+            var text = edit_state_map[name]["orig_val"];
+            if (text == null) {
+                text = "";
+            }
+            edit_box.attr("name","value_" + name).attr("value", text);
+            form_inline.append(edit_box);
+        }
         
         var ok_btn = $("<span></span>").attr("type","submit").addClass("glyphicon").addClass("glyphicon-ok-circle");
         ok_btn.attr("aria-hidden","true").attr("style", "float:right");
         ok_btn.click(function(event) {
-            var value = $("#value_" + name).val();
+            var value = null;
+            if (name == "citystatezip") {
+                value = {
+                    "city" : $("#value_city").val(),
+                    "state" : $("#value_state").val(),
+                    "zip" : $("#value_zip").val()
+                };
+            } else {
+                value = $("#value_" + name).val();
+            }
             ok_inline_edit(event, name, dd_field_name, value);
             return false;
         });
@@ -149,7 +187,14 @@
     }
     
     function ok_inline_edit(event, name, dd_field_name, value) {
-        var data_string = name + "=" + value;
+        var data_string = "";
+        if (name == "citystatezip") {
+            data_string += ("city=" + value["city"] + "&");
+            data_string += ("state=" + value["state"] + "&");
+            data_string += ("zip=" + value["zip"]);
+        } else {
+            data_string = name + "=" + value;
+        }
         $.ajax({
             method : "POST",
             url : "/jobbiest/rest/opportunity/" + opp_id,
@@ -161,8 +206,14 @@
             console.log(err);
         });
         
-        edit_state_map[name]["orig_val"] = value;
-
+        if (name == "citystatezip") {
+            edit_state_map[name]["orig_val"]["city"] = value["city"];
+            edit_state_map[name]["orig_val"]["state"] = value["state"];
+            edit_state_map[name]["orig_val"]["zip"] = value["zip"];
+        } else {
+            edit_state_map[name]["orig_val"] = value;
+       }
+ 
         close_inline_edit(event, name, dd_field_name);
     }
     
@@ -177,6 +228,10 @@
             $(dd_field_name).append(anchor);
         } else if (name == "status") {
             set_status_label(edit_state_map[name]["orig_val"]);
+        } else if (name == "citystatezip") {
+            $(dd_field_name).text(edit_state_map[name]["orig_val"]["city"] + ", " +
+                edit_state_map[name]["orig_val"]["state"] + " " +
+                edit_state_map[name]["orig_val"]["zip"]);
         } else {
             $(dd_field_name).text(edit_state_map[name]["orig_val"]);
         }
@@ -265,9 +320,15 @@
         });
         
         // Register icon callback.
+        var citystatezip_map = {
+            "city" : "${city}",
+            "state" : "${state}",
+            "zip" : "${zip}"
+        }
         register_opp_edit_behaviors("name", "${name}");
         register_opp_edit_behaviors("url", "${url}");
         register_opp_edit_behaviors("address", "${address}");
+        register_opp_edit_behaviors("citystatezip", citystatezip_map);
         register_opp_edit_behaviors("industry", "${industry}");
         register_opp_edit_behaviors("status", "${status}");
     });

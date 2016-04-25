@@ -113,13 +113,13 @@ public class OpportunityService {
                         opportunityTableGateway.updateOpportunityAddress(opportunityId, value);
                         break;
                     case CITY_KEY:
-                        //opportunity.setCity(value);
+                        opportunityTableGateway.updateOpportunityCity(opportunityId, value);
                         break;
                     case STATE_KEY:
-                        //opportunity.setState(value);
+                        opportunityTableGateway.updateOpportunityState(opportunityId, value);
                         break;
                     case ZIP_KEY:
-                        //opportunity.setZip(value);
+                        opportunityTableGateway.updateOpportunityZip(opportunityId, value);
                         break;
                     case URL_KEY:
                         opportunityTableGateway.updateOpportunityUrl(opportunityId, value);
@@ -154,6 +154,7 @@ public class OpportunityService {
         opportunityMap.put("address", opportunity.getAddress());
         opportunityMap.put("city", opportunity.getCity());
         opportunityMap.put("state", opportunity.getState());
+        opportunityMap.put("zip", opportunity.getZip());
 
         return opportunityMap;
     }

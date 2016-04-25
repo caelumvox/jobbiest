@@ -34,6 +34,7 @@ public class OpportunityController {
         model.addAttribute("address", opportunity.getAddress());
         model.addAttribute("city", opportunity.getCity());
         model.addAttribute("state", opportunity.getState());
+        model.addAttribute("zip", opportunity.getZip());
         model.addAttribute("url", opportunity.getUrl());
 
         return "opportunity";
