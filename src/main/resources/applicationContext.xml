@@ -49,4 +49,6 @@
   
   <bean id="seekerTableGateway" class="com.acervusltd.jobbiest.db.SeekerTableGateway" />
   
+  <bean id="stateTableGateway" class="com.acervusltd.jobbiest.db.StateTableGateway" />
+  
  </beans>

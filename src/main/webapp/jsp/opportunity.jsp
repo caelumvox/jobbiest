@@ -88,7 +88,7 @@
     var event_map = {};
     
     // List of all states for the state drop down
-    var state_list = null;
+    var states_list = null;
     
     var status_enum_to_text_map =  {
         "INCLUDED" : {
@@ -132,8 +132,14 @@
             edit_city_box.attr("name","value_city").attr("value", edit_state_map[name]["orig_val"]["city"]);
             form_inline.append(edit_city_box);        
             
-            var edit_state_box = $("<input></input").addClass("form-control").attr("type","text").attr("id","value_state");
-            edit_state_box.attr("name","value_state").attr("value", edit_state_map[name]["orig_val"]["state"]);
+            var edit_state_box = $("<select></select").addClass("form-control").attr("id","value_state");
+            $.each(states_list, function(index, state) {
+                var option = $("<option>" + state.abbreviation + "</option>");
+                if (state.abbreviation == edit_state_map[name]["orig_val"]["state"]) {
+                    option.attr("selected","true");
+                }
+                edit_state_box.append(option);
+            });
             form_inline.append(edit_state_box);        
             
             var edit_zip_box = $("<input></input").addClass("form-control").attr("type","text").attr("id","value_zip");
@@ -289,13 +295,6 @@
         return event_panel;
     }
     
-    // stackoverflow.com
-    // http://stackoverflow.com/questions/2919337/jquery-convert-line-breaks-to-br-nl2br-equivalent
-    function nl2br(str, is_xhtml) {   
-        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
-        return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
-    }
-
     $(document).ready(function() {
         var cur_datetime_str = dateToString(new Date());
         $("#add_event_datetime").val(cur_datetime_str);
@@ -372,7 +371,9 @@
         register_opp_edit_behaviors("industry", "${industry}");
         register_opp_edit_behaviors("status", "${status}");
         
-        state_list = fetch_state_list();
+        $.get("/jobbiest/rest/states", function(data) {
+            states_list = data;
+        }, "json");
     });
         </script>
 </body>
