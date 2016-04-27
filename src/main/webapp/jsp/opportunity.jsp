@@ -40,7 +40,7 @@
               <h3 class="panel-title">Event Log</h3>
             </div>
             <div id="events_body" class="panel-body">
-              <div class="panel panel-success">
+              <div id="events_form_panel" class="panel panel-success">
                 <form id="events_form" class="form-horizontal" method="POST">
                   <div class="form-group">
                     <div class="col-md-offset-2 col-md-6">
@@ -84,6 +84,12 @@
     var seeker_id = ${seeker_id};
     var opp_id = ${opp_id};
     var status = "${status}";
+    
+    var event_map = {};
+    
+    // List of all states for the state drop down
+    var state_list = null;
+    
     var status_enum_to_text_map =  {
         "INCLUDED" : {
             "label_type":"label-success", 
@@ -267,6 +273,28 @@
         status_label.text(status_enum_to_text_map[status].label_string);
         $("#status").append(status_label);
     }
+    
+    function build_event_panel(event) {
+        var event_id = event['event_id'];
+        var event_date = new Date(event['date']);
+        var date_str = dateToString(event_date);
+            
+        var event_title = $("<h3></h3>").append(date_str + " - " + event['type']);
+        var event_heading = $("<div></div>").addClass("panel-heading").append(event_title);
+        var html_text = nl2br(event['text']);
+        var event_body = $("<div></div>").addClass("panel-body").append(html_text);
+        var event_panel = $("<div></div>").attr("id",event["eventId"]).addClass("panel").addClass("panel-success");
+        event_panel.append(event_heading).append(event_body);
+        
+        return event_panel;
+    }
+    
+    // stackoverflow.com
+    // http://stackoverflow.com/questions/2919337/jquery-convert-line-breaks-to-br-nl2br-equivalent
+    function nl2br(str, is_xhtml) {   
+        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
+        return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+    }
 
     $(document).ready(function() {
         var cur_datetime_str = dateToString(new Date());
@@ -274,6 +302,7 @@
 
         set_status_label(status);
 
+        // Get all events associated with this opportunity.
         $.ajax({
             method : "GET",
             url : "/jobbiest/rest/events/" + seeker_id + "/" + opp_id,
@@ -286,15 +315,8 @@
                 return b.date - a.date;
             });
             $.each(event_list, function(index, event) {
-                var event_id = event['event_id'];
-                var event_date = new Date(event['date']);
-                var date_str = dateToString(event_date);
-                    
-                var event_title = $("<h3></h3>").append(date_str + " - " + event['type']);
-                var event_heading = $("<div></div>").addClass("panel-heading").append(event_title);
-                var event_body = $("<div></div>").addClass("panel-body").text(event['text']);
-                var event_panel = $("<div></div>").addClass("panel").addClass("panel-success");
-                event_panel.append(event_heading).append(event_body);
+                event_map[event.eventId] = event;
+                var event_panel = build_event_panel(event);
 
                 events_body.append(event_panel);
             });
@@ -309,8 +331,26 @@
                 $("#events_form").serialize());
             posting.done(function(data){
                 // Receive acknowledgement
-                var eventId = data.eventId;  
-                // Append to existing events.
+                var eventId = data.eventId;
+                
+                var event = {};
+                event["eventId"] = data.eventId;
+                event["date"] = $("#add_event_datetime").val();
+                event["type"] = $("#add_event_title").val();
+                event["text"] = $("#add_event_description").val();
+                
+                // Add to existing events.
+                var event_panel = build_event_panel(event);
+                var after_panel = $("#events_form_panel");
+                $("#events_body").children("div").each(function() {
+                    if (this.id != "events_form_panel") {
+                        if (data.date > event_map[this.id].date) {
+                            return false;
+                        }
+                        after_panel = this;
+                    }
+                });
+                after_panel.after(event_panel);
                 
                 // Clear out existing form.
                 $("#add_event_title").val("");
@@ -331,6 +371,8 @@
         register_opp_edit_behaviors("citystatezip", citystatezip_map);
         register_opp_edit_behaviors("industry", "${industry}");
         register_opp_edit_behaviors("status", "${status}");
+        
+        state_list = fetch_state_list();
     });
         </script>
 </body>
