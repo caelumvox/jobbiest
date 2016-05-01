@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.acervusltd.jobbiest.db.OpportunityTableGateway;
+import com.acervusltd.jobbiest.db.OpportunitiesTableGateway;
 import com.acervusltd.jobbiest.model.Opportunity;
 
 @Controller
@@ -15,7 +15,7 @@ import com.acervusltd.jobbiest.model.Opportunity;
 public class OpportunityController {
 
     @Autowired
-    OpportunityTableGateway opportunityTableGateway;
+    OpportunitiesTableGateway opportunityTableGateway;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showCreateOpportunity() {

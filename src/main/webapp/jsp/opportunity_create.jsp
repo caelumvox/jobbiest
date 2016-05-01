@@ -94,7 +94,7 @@
       }, "json");
       
       $("#opportunity").submit(function(event) {
-          var posting = $.post("/jobbiest/rest/opportunity",
+          var posting = $.post("/jobbiest/rest/opportunities",
               $("#opportunity").serialize());
           posting.done(function(data){
               var opportunity_id = data.opportunityId;  

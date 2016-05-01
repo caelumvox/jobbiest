@@ -32,7 +32,7 @@
 	  var seeker_id = 1;
 	  $.ajax({
            method:"GET",
-           url:"/jobbiest/rest/opportunities/" + seeker_id,
+           url:"/jobbiest/rest/opportunities?seekerId=" + seeker_id,
            dataType:"json",
            contentType:"application/json"
       }).done(function(opp_list){

@@ -45,10 +45,10 @@
   
   <bean id="eventTableGateway" class="com.acervusltd.jobbiest.db.EventsTableGateway" />
   
-  <bean id="opportunityTableGateway" class="com.acervusltd.jobbiest.db.OpportunityTableGateway" />
+  <bean id="opportunityTableGateway" class="com.acervusltd.jobbiest.db.OpportunitiesTableGateway" />
   
   <bean id="seekerTableGateway" class="com.acervusltd.jobbiest.db.SeekerTableGateway" />
   
-  <bean id="stateTableGateway" class="com.acervusltd.jobbiest.db.StateTableGateway" />
+  <bean id="stateTableGateway" class="com.acervusltd.jobbiest.db.StatesTableGateway" />
   
  </beans>

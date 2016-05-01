@@ -14,36 +14,36 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.acervusltd.jobbiest.model.Opportunity;
 
-public class OpportunityTableGateway {
+public class OpportunitiesTableGateway {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpportunityTableGateway.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpportunitiesTableGateway.class);
 
     @Autowired
     private NamedParameterJdbcTemplate jobbiestNamedParamJDBCTemplate;
 
     private static final String OPPORTUNITY_SELECT_LIST_QUERY = 
-            "select * from opportunity where seeker_id = :seeker_id";
+            "select * from opportunities where seeker_id = :seeker_id";
     private static final String OPPORTUNITY_SELECT_QUERY = 
-            "select * from opportunity where opportunity_id = :opportunity_id";
+            "select * from opportunities where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_INSERT_QUERY = 
-            "insert into opportunity (name, industry, address, city, state, zip, url, status, seeker_id) values (:name, :industry, :address, :city, :state, :zip, :url, :status, :seekerId) returning opportunity_id";
+            "insert into opportunities (name, industry, address, city, state, zip, url, status, seeker_id) values (:name, :industry, :address, :city, :state, :zip, :url, :status, :seekerId) returning opportunity_id";
 
     private static final String OPPORTUNITY_UPDATE_NAME_QUERY =
-            "update opportunity set name = :name where opportunity_id = :opportunity_id";
+            "update opportunities set name = :name where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_UPDATE_INDUSTRY_QUERY =
-            "update opportunity set industry = :industry where opportunity_id = :opportunity_id";
+            "update opportunities set industry = :industry where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_UPDATE_ADDRESS_QUERY =
-            "update opportunity set address = :address where opportunity_id = :opportunity_id";
+            "update opportunities set address = :address where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_UPDATE_CITY_QUERY = 
-            "update opportunity set city = :city where opportunity_id = :opportunity_id";
+            "update opportunities set city = :city where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_UPDATE_STATE_QUERY = 
-            "update opportunity set state = :state where opportunity_id = :opportunity_id";
+            "update opportunities set state = :state where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_UPDATE_ZIP_QUERY = 
-            "update opportunity set zip = :zip where opportunity_id = :opportunity_id";
+            "update opportunities set zip = :zip where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_UPDATE_URL_QUERY =
-            "update opportunity set url = :url where opportunity_id = :opportunity_id";
+            "update opportunities set url = :url where opportunity_id = :opportunity_id";
     private static final String OPPORTUNITY_UPDATE_STATUS_QUERY =
-            "update opportunity set status = :status where opportunity_id = :opportunity_id";
+            "update opportunities set status = :status where opportunity_id = :opportunity_id";
 
     public List<Opportunity> getOpportunityList(int seekerId) {
         LOGGER.trace("Fetching opportunity list for seeker %d", seekerId);

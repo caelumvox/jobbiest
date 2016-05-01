@@ -219,7 +219,7 @@
         }
         $.ajax({
             method : "POST",
-            url : "/jobbiest/rest/opportunity/" + opp_id,
+            url : "/jobbiest/rest/opportunities/" + opp_id,
             // FIXME: For some reason, jquery is sending 'name' literal
             //data : {name : value},
             data : data_string,

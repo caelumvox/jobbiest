@@ -12,9 +12,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.acervusltd.jobbiest.model.State;
 
-public class StateTableGateway {
+public class StatesTableGateway {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StateTableGateway.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatesTableGateway.class);
 
     @Autowired
     private NamedParameterJdbcTemplate jobbiestNamedParamJDBCTemplate;

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.acervusltd.jobbiest.db.StateTableGateway;
+import com.acervusltd.jobbiest.db.StatesTableGateway;
 import com.acervusltd.jobbiest.model.State;
 
 @Component
@@ -22,7 +22,7 @@ public class StatesService {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatesService.class);
 
     @Autowired
-    StateTableGateway stateTableGateway;
+    StatesTableGateway stateTableGateway;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
