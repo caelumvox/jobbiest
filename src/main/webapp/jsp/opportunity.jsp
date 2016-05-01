@@ -336,7 +336,7 @@
         // Add Event button handler
         $("#add_event_btn").click(function(event){
             // Dispatch event to REST interface
-            var posting = $.post("/jobbiest/rest/event/" + seeker_id + "/" + opp_id,
+            var posting = $.post("/jobbiest/rest/events/" + seeker_id + "/" + opp_id,
                 $("#events_form").serialize());
             posting.done(function(data){
                 // Receive acknowledgement

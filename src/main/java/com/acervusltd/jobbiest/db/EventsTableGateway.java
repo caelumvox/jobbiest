@@ -14,16 +14,16 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.acervusltd.jobbiest.model.Event;
 
-public class EventTableGateway {
+public class EventsTableGateway {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventTableGateway.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventsTableGateway.class);
 
     @Autowired
     private NamedParameterJdbcTemplate jobbiestNamedParamJDBCTemplate;
 
-    private static final String EVENT_LIST_QUERY = "select * from event where seeker_id = :seeker_id and opportunity_id = :opportunity_id";
+    private static final String EVENT_LIST_QUERY = "select * from events where seeker_id = :seeker_id and opportunity_id = :opportunity_id";
     
-    private static final String EVENT_INSERT_QUERY = "insert into event (seeker_id, opportunity_id, date, type, text) values (:seekerId, :opportunityId, :date, :type, :text) returning event_id";
+    private static final String EVENT_INSERT_QUERY = "insert into events (seeker_id, opportunity_id, date, type, text) values (:seekerId, :opportunityId, :date, :type, :text) returning event_id";
 
     public List<Event> getEventList(int seekerId, int opportunityId) {
         LOGGER.trace("Fetching event list for seeker %d, opportunity %d", seekerId, opportunityId);
