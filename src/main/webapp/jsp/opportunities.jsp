@@ -44,7 +44,7 @@
     	  
           $.each(opp_list, function(index, opportunity) {
         	  var opp_id = opportunity['opp_id'];
-       	      var linkpath = "/jobbiest/view/opportunity/" + opp_id;
+       	      var linkpath = "/jobbiest/view/opportunities/" + opp_id;
        	      var link = $("<a></a>").attr("href", linkpath).text(opportunity['name']);
        	      
         	  var name_col = $("<td></td>").append(link);
