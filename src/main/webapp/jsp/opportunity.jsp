@@ -127,10 +127,14 @@
         
         var form_inline = $("<form></form>").addClass("form-inline");
 
+        var valid_func_map = {};
         if (name == "citystatezip") {
             var edit_city_box = $("<input></input").addClass("form-control").attr("type","text").attr("id","value_city");
             edit_city_box.attr("name","value_city").attr("value", edit_state_map[name]["orig_val"]["city"]);
-            form_inline.append(edit_city_box);        
+            valid_func_map["city"] = function() {
+                return true;
+            }
+            form_inline.append(edit_city_box);
             
             var edit_state_box = $("<select></select").addClass("form-control").attr("id","value_state");
             $.each(states_list, function(index, state) {
@@ -140,10 +144,16 @@
                 }
                 edit_state_box.append(option);
             });
+            valid_func_map["state"] = function() {
+                return true;
+            }
             form_inline.append(edit_state_box);        
             
             var edit_zip_box = $("<input></input").addClass("form-control").attr("type","text").attr("id","value_zip");
             edit_zip_box.attr("name","value_zip").attr("value", edit_state_map[name]["orig_val"]["zip"]);
+            valid_func_map["zip"] = function() {
+                return validate_zip($("#value_zip").val());
+            }
             form_inline.append(edit_zip_box);
         } else if (name == "status") {
             var select_box = $("<select></select>").attr("id","value_status");
