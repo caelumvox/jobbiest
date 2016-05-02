@@ -2,11 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:context="http://www.springframework.org/schema/context"
-  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:security="http://www.springframework.org/schema/security"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
                       http://www.springframework.org/schema/beans/spring-beans.xsd
                       http://www.springframework.org/schema/context
-                      http://www.springframework.org/schema/context/spring-context.xsd">
+                      http://www.springframework.org/schema/context/spring-context.xsd
+                      http://www.springframework.org/schema/security 
+                      http://www.springframework.org/schema/security/spring-security.xsd">
 
   <context:property-placeholder location="classpath*:*.properties" />
   
@@ -50,5 +52,22 @@
   <bean id="seekerTableGateway" class="com.acervusltd.jobbiest.db.SeekerTableGateway" />
   
   <bean id="stateTableGateway" class="com.acervusltd.jobbiest.db.StatesTableGateway" />
+  
+  <security:http auto-config="true" >
+    <security:intercept-url pattern="/rest/**" access="hasRole('SEEKER')" />
+    <security:intercept-url pattern="/view/login" access="permitAll" />
+    <security:intercept-url pattern="/view/**" access="hasRole('SEEKER')" />
+    <security:form-login login-page="/view/login" 
+                         username-parameter="username" 
+                         password-parameter="password" 
+                         authentication-failure-url="/html/error.html" />
+    <security:csrf/>
+  </security:http>
+  
+  <security:authentication-manager >
+    <security:authentication-provider user-service-ref="seekerDetailsService"/>
+  </security:authentication-manager>
+  
+  <bean id="seekerDetailsService" class="com.acervusltd.jobbiest.session.SeekerDetailsService" />
   
  </beans>

@@ -1,25 +1,20 @@
 package com.acervusltd.jobbiest.view;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.acervusltd.jobbiest.db.SeekerTableGateway;
 import com.acervusltd.jobbiest.model.Seeker;
+import com.acervusltd.jobbiest.session.SeekerDetailsService;
 
 @Controller
 @RequestMapping("/profile")
 public class SeekerController {
 
-    @Autowired
-    SeekerTableGateway seekerTableGateway;
-
-    @RequestMapping(value = "/{seekerId}", method = RequestMethod.GET)
-    public String getOpportunity(@PathVariable Integer seekerId, Model model) {
-        Seeker seeker = seekerTableGateway.getSeeker(seekerId);
+    @RequestMapping(method = RequestMethod.GET)
+    public String getOpportunity(Model model) {
+        Seeker seeker = SeekerDetailsService.getSeeker();
 
         model.addAttribute("seeker_id", seeker.getSeekerId());
         model.addAttribute("username", seeker.getUsername());

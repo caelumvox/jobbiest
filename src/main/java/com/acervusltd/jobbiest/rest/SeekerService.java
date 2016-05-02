@@ -36,7 +36,7 @@ public class SeekerService {
             throw new RuntimeException("No seekerId supplied.  Not returning result.");
         }
 
-        Seeker seeker = seekerTableGateway.getSeeker(seekerId);
+        Seeker seeker = seekerTableGateway.getSeekerById(seekerId);
 
         return seeker;
     }
@@ -52,7 +52,7 @@ public class SeekerService {
             throw new RuntimeException("No seekerId supplied.  Not returning result.");
         }
 
-        Seeker seeker = seekerTableGateway.getSeeker(seekerId);
+        Seeker seeker = seekerTableGateway.getSeekerById(seekerId);
         
         for (String key: formParams.keySet()) {
             String value = formParams.getFirst(key);

@@ -18,7 +18,7 @@ public class OpportunitiesController {
     OpportunitiesTableGateway opportunityTableGateway;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getOpportunity() {
+    public String getOpportunities() {
         return "opportunities";
     }
     

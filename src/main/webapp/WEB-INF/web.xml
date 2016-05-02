@@ -29,7 +29,7 @@
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
     <init-param>
       <param-name>javax.ws.rs.Application</param-name>
-      <param-value>com.acervusltd.jobbiest.web.JobbiestResourceConfig</param-value>
+      <param-value>com.acervusltd.jobbiest.config.JobbiestResourceConfig</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>
@@ -38,6 +38,16 @@
     <servlet-name>jobbiest-rest</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
+  
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+ 
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <welcome-file-list>
     <welcome-file>/jsp/index.jsp</welcome-file>

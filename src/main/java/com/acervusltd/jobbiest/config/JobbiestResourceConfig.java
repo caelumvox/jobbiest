@@ -1,4 +1,4 @@
-package com.acervusltd.jobbiest.web;
+package com.acervusltd.jobbiest.config;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
