@@ -14,17 +14,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.acervusltd.jobbiest.db.SeekerTableGateway;
+import com.acervusltd.jobbiest.db.SeekersTableGateway;
 import com.acervusltd.jobbiest.model.Seeker;
 
 @Component
 @Path("/seeker")
-public class SeekerService {
+public class SeekersService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SeekerService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SeekersService.class);
 
     @Autowired
-    SeekerTableGateway seekerTableGateway;
+    SeekersTableGateway seekerTableGateway;
     
     @GET
     @Path("/{seekerId}")

@@ -13,18 +13,18 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.acervusltd.jobbiest.model.Seeker;
 
-public class SeekerTableGateway {
+public class SeekersTableGateway {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SeekerTableGateway.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SeekersTableGateway.class);
 
     @Autowired
     private NamedParameterJdbcTemplate jobbiestNamedParamJDBCTemplate;
 
-    private static final String SEEKER_SELECT_BY_ID_QUERY = "select * from seeker where seeker_id = :seeker_id";
+    private static final String SEEKER_SELECT_BY_ID_QUERY = "select * from seekers where seeker_id = :seeker_id";
 
-    private static final String SEEKER_SELECT_BY_USERNAME_QUERY = "select * from seeker where username = :username";
+    private static final String SEEKER_SELECT_BY_USERNAME_QUERY = "select * from seekers where username = :username";
 
-    private static final String SEEKER_UPDATE_QUERY = "update seeker set username = :username, password=:password, email=:email, address=:address, city=:city, state=:state, firstname=:firstname, lastname=:lastname where seeker_id = :seekerId";
+    private static final String SEEKER_UPDATE_QUERY = "update seekers set username = :username, password=:password, email=:email, address=:address, city=:city, state=:state, firstname=:firstname, lastname=:lastname where seeker_id = :seekerId";
 
     public Seeker getSeekerById(int seekerId) {
         LOGGER.trace("Fetching seeker with id %d", seekerId);

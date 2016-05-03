@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.acervusltd.jobbiest.db.SeekerTableGateway;
+import com.acervusltd.jobbiest.db.SeekersTableGateway;
 import com.acervusltd.jobbiest.model.Seeker;
 
 public class SeekerDetailsService implements UserDetailsService {
@@ -22,7 +22,7 @@ public class SeekerDetailsService implements UserDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SeekerDetailsService.class);
     
     @Autowired
-    private SeekerTableGateway seekerTableGateway;
+    private SeekersTableGateway seekerTableGateway;
     
     @Transactional(readOnly=true)
     @Override

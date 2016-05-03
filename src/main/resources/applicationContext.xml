@@ -49,7 +49,7 @@
   
   <bean id="opportunityTableGateway" class="com.acervusltd.jobbiest.db.OpportunitiesTableGateway" />
   
-  <bean id="seekerTableGateway" class="com.acervusltd.jobbiest.db.SeekerTableGateway" />
+  <bean id="seekerTableGateway" class="com.acervusltd.jobbiest.db.SeekersTableGateway" />
   
   <bean id="stateTableGateway" class="com.acervusltd.jobbiest.db.StatesTableGateway" />
   
