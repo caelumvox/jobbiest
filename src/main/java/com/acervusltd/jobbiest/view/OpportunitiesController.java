@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.acervusltd.jobbiest.db.OpportunitiesTableGateway;
 import com.acervusltd.jobbiest.model.Opportunity;
+import com.acervusltd.jobbiest.model.Seeker;
+import com.acervusltd.jobbiest.session.SeekerDetailsService;
 
 @Controller
 @RequestMapping("/opportunities")
@@ -18,12 +20,16 @@ public class OpportunitiesController {
     OpportunitiesTableGateway opportunityTableGateway;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getOpportunities() {
+    public String getOpportunities(Model model) {
+        Seeker seeker = SeekerDetailsService.getSeeker();
+        model.addAttribute("seeker_id", seeker.getSeekerId());
         return "opportunities";
     }
     
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String showCreateOpportunity() {
+    public String showCreateOpportunity(Model model) {
+        Seeker seeker = SeekerDetailsService.getSeeker();
+        model.addAttribute("seeker_id", seeker.getSeekerId());
         return "opportunity_create";
     }
     

@@ -11,8 +11,7 @@
     <div class="row">
       <div class="col-md-12 main">
         <form id="opportunity" class="form-horizontal" action="/jobbiest/view/opportunities">
-          <!-- TODO: Static referenced! Please correct. -->
-          <input type="hidden" name="seeker_id" value="1">
+          <input type="hidden" name="seeker_id" value="${seeker_id}">
           <div class="form-group">
             <div class="col-md-2"></div>
             <div class="col-md-3">

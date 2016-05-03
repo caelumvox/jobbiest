@@ -29,7 +29,7 @@
   <script type="text/javascript">
   $(document).ready(function(){
 	  var request_map = {};
-	  var seeker_id = 1;
+	  var seeker_id = ${seeker_id};
 	  $.ajax({
            method:"GET",
            url:"/jobbiest/rest/opportunities?seekerId=" + seeker_id,
