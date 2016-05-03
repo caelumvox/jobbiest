@@ -6,7 +6,7 @@
 <title>jobbiest :: creating opportunity</title>
 </head>
 <body>
-  <%@include file="/html/head.html"%>
+<%@include file="/jsp/navbar.jsp" %>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 main">

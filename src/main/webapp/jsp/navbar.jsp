@@ -17,8 +17,11 @@
             </li>
           </ul>        
           <ul class="nav navbar-nav navbar-right">
+          <% if (request.getRemoteUser() == null) { %>
             <li><a href="/jobbiest/view/login">login</a></li>
+          <% } else { %>
             <li><a href="/jobbiest/view/logout">logout</a></li>
+          <% } %>
             <li><a href="/jobbiest/view/profile">profile</a></li>
             <li><a href="/jobbiest/view/about">about</a></li>
           </ul>

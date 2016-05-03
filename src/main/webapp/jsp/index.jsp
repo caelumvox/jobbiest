@@ -6,7 +6,7 @@
   <title>jobbiest :: track your next move</title>
 </head>
 <body>
-<%@include file="/html/head.html" %>
+<%@include file="/jsp/navbar.jsp" %>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-7">
