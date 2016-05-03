@@ -55,12 +55,13 @@
   
   <security:http auto-config="true" >
     <security:intercept-url pattern="/rest/**" access="hasRole('SEEKER')" />
+    <security:intercept-url pattern="/view/error" access="permitAll" />
     <security:intercept-url pattern="/view/login" access="permitAll" />
     <security:intercept-url pattern="/view/**" access="hasRole('SEEKER')" />
     <security:form-login login-page="/view/login" 
                          username-parameter="username" 
                          password-parameter="password" 
-                         authentication-failure-url="/html/error.html" />
+                         authentication-failure-url="/view/error" />
     <security:csrf/>
   </security:http>
   

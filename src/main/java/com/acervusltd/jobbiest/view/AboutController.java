@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/help")
-public class HelpController {
+@RequestMapping("/about")
+public class AboutController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getHelp() {
-        return "help";
+    public String getAbout() {
+        return "about";
     }
 }
