@@ -20,9 +20,8 @@
           <% if (request.getRemoteUser() == null) { %>
             <li><a href="/jobbiest/view/login">login</a></li>
           <% } else { %>
-            <li><a href="/jobbiest/view/logout">logout</a></li>
+            <li><a href="/jobbiest/view/profile"><%= request.getRemoteUser() %></a></li>
           <% } %>
-            <li><a href="/jobbiest/view/profile">profile</a></li>
             <li><a href="/jobbiest/view/about">about</a></li>
           </ul>
         </div>        

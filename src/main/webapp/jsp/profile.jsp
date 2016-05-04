@@ -66,6 +66,11 @@
             </div>
           </div>
         </form>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+            <a href="/jobbiest/view/logout"><button class="btn">Logout</button></a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
