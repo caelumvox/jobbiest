@@ -5,15 +5,15 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="/jobbiest/css/bootstrap.min.css">  
-  <link href="/jobbiest/css/bootstrap-editable.css" rel="stylesheet">
-  <link href="/jobbiest/css/signin.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.min.css">  
+  <link href="/resources/css/bootstrap-editable.css" rel="stylesheet">
+  <link href="/resources/css/signin.css" rel="stylesheet">
   <title>jobbiest :: track your next move</title>
 </head>
 <body>
   <div class="container">
 
-    <form class="form-signin" method="post" action="/jobbiest/login">
+    <form class="form-signin" method="post" action="/web/login">
       <h2 class="form-signin-heading">Please sign in</h2>
       <label for="inputUsername" class="sr-only">Email address</label>
       <input id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus></input>
@@ -29,7 +29,7 @@
     </form>
 
   </div> <!-- /container -->
-<%@include file="/html/footer_includes.html" %>
+<%@include file="/resources/html/footer_includes.html" %>
 
 </body>
 </html>

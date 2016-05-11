@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@include file="/html/includes.html"%>
+<%@include file="/resources/html/includes.html"%>
 <title>jobbiest :: creating opportunity</title>
 </head>
 <body>
@@ -10,7 +10,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 main">
-        <form id="opportunity" class="form-horizontal" action="/jobbiest/view/opportunities">
+        <form id="opportunity" class="form-horizontal" action="/web/opportunities">
           <input type="hidden" name="seeker_id" value="${seeker_id}">
           <div class="form-group">
             <div class="col-md-2"></div>
@@ -82,22 +82,22 @@
       </div>
     </div>
   </div>
-  <%@include file="/html/footer_includes.html"%>
+  <%@include file="/resources/html/footer_includes.html"%>
   <script type="text/javascript">
   $(document).ready(function(){
       // Fill in states form.
-      $.get("/jobbiest/rest/states", function(states_list) {
+      $.get("/rest/states", function(states_list) {
           $.each(states_list, function(index, state) {
               $("#inputState").append($("<option>" + state.abbreviation + "</option>"));
           });
       }, "json");
       
       $("#opportunity").submit(function(event) {
-          var posting = $.post("/jobbiest/rest/opportunities",
+          var posting = $.post("/rest/opportunities",
               $("#opportunity").serialize());
           posting.done(function(data){
               var opportunity_id = data.opportunityId;  
-              window.location.replace("/jobbiest/view/opportunity/" + opportunity_id);
+              window.location.replace("/web/opportunity/" + opportunity_id);
           });
           return false;
       });

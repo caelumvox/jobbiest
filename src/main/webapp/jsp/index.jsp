@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@include file="/html/includes.html" %>
-  <link href="/jobbiest/css/carousel.css" rel="stylesheet">
+<%@include file="/resources/html/includes.html" %>
+  <link href="/resources/css/carousel.css" rel="stylesheet">
   <title>jobbiest :: track your next move</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
     </ol>
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img class="first-slide" src="/jobbiest/img/list.jpg" alt="First slide">
+        <img class="first-slide" src="/resources/img/list.jpg" alt="First slide">
         <div class="container">
           <div class="carousel-caption">
             <h1>List your opportunities.</h1>
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="item">
-        <img class="second-slide" src="/jobbiest/img/track.jpg" alt="Second slide">
+        <img class="second-slide" src="/resources/img/track.jpg" alt="Second slide">
         <div class="container">
           <div class="carousel-caption">
             <h1>Evaluate your search.</h1>
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="item">
-        <img class="third-slide" src="/jobbiest/img/opp.jpg" alt="Third slide">
+        <img class="third-slide" src="/resources/img/opp.jpg" alt="Third slide">
         <div class="container">
           <div class="carousel-caption">
             <h1>Select your best option.</h1>
@@ -84,7 +84,7 @@
       </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
   </div><!-- /.container -->
-<%@include file="/html/footer_includes.html" %>
+<%@include file="/resources/html/footer_includes.html" %>
 
 </body>
 </html>

@@ -52,17 +52,21 @@
   <bean id="seekerTableGateway" class="com.acervusltd.jobbiest.db.SeekersTableGateway" />
   
   <bean id="stateTableGateway" class="com.acervusltd.jobbiest.db.StatesTableGateway" />
-  
-  <security:http auto-config="true" >
-    <security:intercept-url pattern="/rest/**" access="hasRole('SEEKER')" />
-    <security:intercept-url pattern="/view/error" access="permitAll" />
-    <security:intercept-url pattern="/view/login" access="permitAll" />
-    <security:intercept-url pattern="/view/**" access="hasRole('SEEKER')" />
-    <security:form-login login-page="/view/login" 
+
+  <security:http pattern="/resources/**" security="none" />
+  <security:http pattern="/web/login" security="none" />
+  <security:http pattern="/web/error" security="none" />
+  <security:http pattern="/web/about" security="none" />
+  <security:http pattern="/" security="none" />
+  <security:http use-expressions="false">
+    <security:intercept-url pattern="/rest/**" access="ROLE_SEEKER" />
+    <security:intercept-url pattern="/web/**" access="ROLE_SEEKER" />
+    <security:form-login login-page="/web/login"
+                         login-processing-url="/j_spring_security_check"
                          username-parameter="username" 
                          password-parameter="password" 
-                         authentication-failure-url="/view/error" />
-    <security:csrf/>
+                         authentication-failure-url="/web/login?error=true" />
+    <security:logout logout-url="/web/logout" />
   </security:http>
   
   <security:authentication-manager >
@@ -70,5 +74,5 @@
   </security:authentication-manager>
   
   <bean id="seekerDetailsService" class="com.acervusltd.jobbiest.session.SeekerDetailsService" />
-  
+
  </beans>

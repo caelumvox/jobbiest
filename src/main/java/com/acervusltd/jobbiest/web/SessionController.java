@@ -1,4 +1,4 @@
-package com.acervusltd.jobbiest.view;
+package com.acervusltd.jobbiest.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +18,11 @@ public class SessionController {
         return "login";
     }
     
+    @RequestMapping(value="/login", method = RequestMethod.POST)
+    public String processLogin() {
+        return "login";
+    }
+    
     @RequestMapping(value="/error", method = RequestMethod.GET)
     public String getError() {
         return "error";
@@ -29,6 +34,6 @@ public class SessionController {
         if (auth != null){    
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/view/login?logout";
+        return "redirect:/login?logout";
     }
 }

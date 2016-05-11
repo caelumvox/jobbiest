@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@include file="/html/includes.html"%>
+<%@include file="/resources/html/includes.html"%>
 <title>jobbiest :: profile</title>
 </head>
 <body>
@@ -60,6 +60,12 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="inputZip" class="col-md-2 control-label">Zip</label>
+            <div class="col-md-1">
+              <input type="text" class="form-control" id="inputZip" name="zip" value="${zip}">
+            </div>
+          </div>
+          <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
               <button type="submit" class="btn">Update</button>
               <button class="btn btn-default">Cancel</button>
@@ -68,17 +74,17 @@
         </form>
         <div class="form-group">
           <div class="col-md-offset-2 col-md-10">
-            <a href="/jobbiest/view/logout"><button class="btn">Logout</button></a>
+            <a href="/web/logout"><button class="btn">Logout</button></a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <%@include file="/html/footer_includes.html"%>
+  <%@include file="/resources/html/footer_includes.html"%>
   <script type="text/javascript">
   $(document).ready(function(){
       $("#profile").submit(function(event) {
-          $.post("/jobbiest/rest/seeker/" + ${seeker_id},
+          $.post("/rest/seekers/" + ${seeker_id},
                   $("#profile").serialize());
           return false;
       });

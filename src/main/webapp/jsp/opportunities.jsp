@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@include file="/html/includes.html" %>
+<%@include file="/resources/html/includes.html" %>
   <title>jobbiest :: track your next move</title>
 </head>
 <body>
@@ -25,14 +25,14 @@
       </div>
     </div>
   </div>
-<%@include file="/html/footer_includes.html" %>
+<%@include file="/resources/html/footer_includes.html" %>
   <script type="text/javascript">
   $(document).ready(function(){
 	  var request_map = {};
 	  var seeker_id = ${seeker_id};
 	  $.ajax({
            method:"GET",
-           url:"/jobbiest/rest/opportunities?seekerId=" + seeker_id,
+           url:"/rest/opportunities?seekerId=" + seeker_id,
            dataType:"json",
            contentType:"application/json"
       }).done(function(opp_list){
@@ -44,7 +44,7 @@
     	  
           $.each(opp_list, function(index, opportunity) {
         	  var opp_id = opportunity['opp_id'];
-       	      var linkpath = "/jobbiest/view/opportunities/" + opp_id;
+       	      var linkpath = "/web/opportunities/" + opp_id;
        	      var link = $("<a></a>").attr("href", linkpath).text(opportunity['name']);
        	      
         	  var name_col = $("<td></td>").append(link);

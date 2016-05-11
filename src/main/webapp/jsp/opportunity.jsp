@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@include file="/html/includes.html"%>
+<%@include file="/resources/html/includes.html"%>
 <title>jobbiest :: opportunity ${name}</title>
 </head>
 <body>
@@ -78,7 +78,7 @@
       </div>
     </div>
   </div>
-  <%@include file="/html/footer_includes.html"%>
+  <%@include file="/resources/html/footer_includes.html"%>
   <script type="text/javascript">
     var edit_state_map = {};
     var seeker_id = ${seeker_id};
@@ -219,7 +219,7 @@
         }
         $.ajax({
             method : "POST",
-            url : "/jobbiest/rest/opportunities/" + opp_id,
+            url : "/rest/opportunities/" + opp_id,
             // FIXME: For some reason, jquery is sending 'name' literal
             //data : {name : value},
             data : data_string,
@@ -314,7 +314,7 @@
         // Get all events associated with this opportunity.
         $.ajax({
             method : "GET",
-            url : "/jobbiest/rest/events/" + seeker_id + "/" + opp_id,
+            url : "/rest/events/" + seeker_id + "/" + opp_id,
             dataType : "json",
             contentType : "application/json"
         }).done(function(event_list) {
@@ -336,7 +336,7 @@
         // Add Event button handler
         $("#add_event_btn").click(function(event){
             // Dispatch event to REST interface
-            var posting = $.post("/jobbiest/rest/events/" + seeker_id + "/" + opp_id,
+            var posting = $.post("/rest/events/" + seeker_id + "/" + opp_id,
                 $("#events_form").serialize());
             posting.done(function(data){
                 // Receive acknowledgement
@@ -381,7 +381,7 @@
         register_opp_edit_behaviors("industry", "${industry}");
         register_opp_edit_behaviors("status", "${status}");
         
-        $.get("/jobbiest/rest/states", function(data) {
+        $.get("/rest/states", function(data) {
             states_list = data;
         }, "json");
     });

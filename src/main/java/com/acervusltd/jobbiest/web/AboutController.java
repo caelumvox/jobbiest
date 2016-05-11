@@ -1,4 +1,4 @@
-package com.acervusltd.jobbiest.view;
+package com.acervusltd.jobbiest.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

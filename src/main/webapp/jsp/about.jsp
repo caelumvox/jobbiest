@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@include file="/html/includes.html" %>
+<%@include file="/resources/html/includes.html" %>
   <title>jobbiest :: about</title>
 </head>
 <body>
@@ -16,6 +16,6 @@
       </div>
     </div>
   </div>
-<%@include file="/html/footer_includes.html" %>
+<%@include file="/resources/html/footer_includes.html" %>
 </body>
 </html>

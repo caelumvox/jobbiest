@@ -18,7 +18,7 @@ import com.acervusltd.jobbiest.db.SeekersTableGateway;
 import com.acervusltd.jobbiest.model.Seeker;
 
 @Component
-@Path("/seeker")
+@Path("/seekers")
 public class SeekersService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SeekersService.class);
