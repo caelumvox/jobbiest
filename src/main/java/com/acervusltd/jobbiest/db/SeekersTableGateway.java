@@ -27,7 +27,7 @@ public class SeekersTableGateway {
     private static final String SEEKER_UPDATE_QUERY = "update seekers set username = :username, password=:password, email=:email, address=:address, city=:city, state=:state, firstname=:firstname, lastname=:lastname where seeker_id = :seekerId";
 
     public Seeker getSeekerById(int seekerId) {
-        LOGGER.trace("Fetching seeker with id %d", seekerId);
+        LOGGER.trace("Fetching seeker with id {}", seekerId);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("seeker_id", seekerId);
@@ -39,7 +39,7 @@ public class SeekersTableGateway {
     }
     
     public Seeker getSeekerByUsername(String username) {
-        LOGGER.trace("Fetching seeker with username %s", username);
+        LOGGER.trace("Fetching seeker with username {}", username);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("username", username);
@@ -53,9 +53,9 @@ public class SeekersTableGateway {
     public void updateSeeker(Seeker seeker) {
         try {
             int result = jobbiestNamedParamJDBCTemplate.update(SEEKER_UPDATE_QUERY, new BeanPropertySqlParameterSource(seeker));
-            LOGGER.trace("Result of insert: %d", result);
+            LOGGER.trace("Result of insert: {}", result);
         } catch (DataAccessException dae) {
-            LOGGER.trace("Error attempting to update seeker with id [%d]: %s", seeker.getSeekerId(), dae);
+            LOGGER.trace("Error attempting to update seeker with id [{}]: {}", seeker.getSeekerId(), dae);
         }
         
     }

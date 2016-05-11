@@ -22,11 +22,15 @@
     </encoder>
   </appender>
 
+  <logger additivity="false" name="org.springframework" level="TRACE">
+    <appender-ref ref="FILE_ALL" />
+  </logger>
+
   <!-- ============================================================= -->
   <!-- Root Logger for any logging not covered by the above loggers. -->
   <!-- ============================================================= -->
-  <root level="WARN">
+  <root level="TRACE">
     <appender-ref ref="FILE_ALL" />
   </root>
-
+  
 </configuration>

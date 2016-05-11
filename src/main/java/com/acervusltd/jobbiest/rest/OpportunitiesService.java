@@ -109,7 +109,7 @@ public class OpportunitiesService {
                         opportunity.setSeekerId(Integer.valueOf(value));
                         break;
                     default:
-                        LOGGER.warn("Unidentified parameter %s, ignoring.", key);
+                        LOGGER.warn("Unidentified parameter {}, ignoring.", key);
                 }
             }
         }
@@ -125,7 +125,7 @@ public class OpportunitiesService {
     @Path("/{opportunityId}")
     public void postOpportunityParameter(@PathParam("opportunityId") Integer opportunityId,
             MultivaluedMap<String, String> formParams) {
-        LOGGER.trace("Updating opportunity [%d]", opportunityId);
+        LOGGER.trace("Updating opportunity [{}]", opportunityId);
 
         for (String key : formParams.keySet()) {
             String value = formParams.getFirst(key);
@@ -157,7 +157,7 @@ public class OpportunitiesService {
                         opportunityTableGateway.updateOpportunityStatus(opportunityId, value);
                         break;
                     default:
-                        LOGGER.warn("Unidentified parameter %s, ignoring.", key);
+                        LOGGER.warn("Unidentified parameter {}, ignoring.", key);
                 }
             }
         }
@@ -167,7 +167,7 @@ public class OpportunitiesService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{opportunityId}")
     public Map<String, Object> getOpportunity(@PathParam("opportunityId") Integer opportunityId) {
-        LOGGER.trace("Opportunity with id %d requested.", opportunityId);
+        LOGGER.trace("Opportunity with id {} requested.", opportunityId);
 
         if (opportunityId == null) {
             LOGGER.warn("No opportunityId supplied.  Not returning result.");

@@ -26,7 +26,7 @@ public class EventsTableGateway {
     private static final String EVENT_INSERT_QUERY = "insert into events (seeker_id, opportunity_id, date, type, text) values (:seekerId, :opportunityId, :date, :type, :text) returning event_id";
 
     public List<Event> getEventList(int seekerId, int opportunityId) {
-        LOGGER.trace("Fetching event list for seeker %d, opportunity %d", seekerId, opportunityId);
+        LOGGER.trace("Fetching event list for seeker {}, opportunity {}", seekerId, opportunityId);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("seeker_id", seekerId);
@@ -39,7 +39,7 @@ public class EventsTableGateway {
     }
 
     public Integer addEvent(Event event) {
-        LOGGER.trace("Creating event %s", event);
+        LOGGER.trace("Creating event {}", event);
         
         Integer eventId = null;
 

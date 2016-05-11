@@ -41,7 +41,7 @@ public class EventsService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Event> getEvents(@PathParam("seekerId") Integer seekerId,
             @PathParam("opportunityId") Integer opportunityId) {
-        LOGGER.trace("Event list for seeker %d and opportunity %d requested.", seekerId, opportunityId);
+        LOGGER.trace("Event list for seeker {} and opportunity {} requested.", seekerId, opportunityId);
 
         if (seekerId == null) {
             throw new RuntimeException("No seekerId supplied.  Not returning result.");
@@ -73,7 +73,7 @@ public class EventsService {
     public Event addEvent(@PathParam("seekerId") Integer seekerId,
             @PathParam("opportunityId") Integer opportunityId,
             MultivaluedMap<String, String> formParams) {
-        LOGGER.trace("Request received for adding event to seeker %d and opportunity %d.", seekerId, opportunityId);
+        LOGGER.trace("Request received for adding event to seeker {} and opportunity {}.", seekerId, opportunityId);
 
         if (seekerId == null) {
             throw new RuntimeException("No seekerId supplied.  Not returning result.");
@@ -102,7 +102,7 @@ public class EventsService {
                         event.setText(value);
                         break;
                     default:
-                        LOGGER.warn("Unidentified parameter %s, ignoring.", key);
+                        LOGGER.warn("Unidentified parameter {}, ignoring.", key);
                 }
             }
         }

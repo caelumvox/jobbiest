@@ -62,11 +62,11 @@
     <security:intercept-url pattern="/rest/**" access="ROLE_SEEKER" />
     <security:intercept-url pattern="/web/**" access="ROLE_SEEKER" />
     <security:form-login login-page="/web/login"
-                         login-processing-url="/j_spring_security_check"
                          username-parameter="username" 
                          password-parameter="password" 
-                         authentication-failure-url="/web/login?error=true" />
-    <security:logout logout-url="/web/logout" />
+                         authentication-failure-url="/web/login?error" />
+    <security:logout logout-url="/web/logout" logout-success-url="/web/login?logout" />
+    <security:csrf disabled="true" />
   </security:http>
   
   <security:authentication-manager >

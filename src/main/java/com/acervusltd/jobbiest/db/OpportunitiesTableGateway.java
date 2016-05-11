@@ -46,7 +46,7 @@ public class OpportunitiesTableGateway {
             "update opportunities set status = :status where opportunity_id = :opportunity_id";
 
     public List<Opportunity> getOpportunityList(int seekerId) {
-        LOGGER.trace("Fetching opportunity list for seeker %d", seekerId);
+        LOGGER.trace("Fetching opportunity list for seeker {}", seekerId);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("seeker_id", seekerId);
@@ -55,14 +55,14 @@ public class OpportunitiesTableGateway {
             opportunityList = jobbiestNamedParamJDBCTemplate.query(OPPORTUNITY_SELECT_LIST_QUERY,
                 parameterMap, new BeanPropertyRowMapper<Opportunity>(Opportunity.class));
         } catch (DataAccessException dae) {
-            LOGGER.warn("Error attempting to fetch all opportunities for seeker %d", seekerId);
+            LOGGER.warn("Error attempting to fetch all opportunities for seeker {}", seekerId);
         }
 
         return opportunityList;
     }
 
     public Opportunity getOpportunity(int opportunityId) {
-        LOGGER.trace("Fetching opportunity with id %d", opportunityId);
+        LOGGER.trace("Fetching opportunity with id {}", opportunityId);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("opportunity_id", opportunityId);
@@ -74,7 +74,7 @@ public class OpportunitiesTableGateway {
     }
 
     public Integer createOpportunity(Opportunity opportunity) {
-        LOGGER.trace("Creating opportunity %s", opportunity);
+        LOGGER.trace("Creating opportunity {}", opportunity);
         
         Integer opportunityId = null;
 
@@ -89,7 +89,7 @@ public class OpportunitiesTableGateway {
     }
     
     public boolean updateOpportunityName(int opportunityId, String name) {
-        LOGGER.trace("Updating opportunity with id %d name to %s", opportunityId, name);
+        LOGGER.trace("Updating opportunity with id {} name to {}", opportunityId, name);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("opportunity_id", opportunityId);
@@ -102,7 +102,7 @@ public class OpportunitiesTableGateway {
     }
     
     public boolean updateOpportunityIndustry(int opportunityId, String industry) {
-        LOGGER.trace("Updating opportunity with id %d industry to %s", opportunityId, industry);
+        LOGGER.trace("Updating opportunity with id {} industry to {}", opportunityId, industry);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("opportunity_id", opportunityId);
@@ -115,7 +115,7 @@ public class OpportunitiesTableGateway {
     }
     
     public boolean updateOpportunityAddress(int opportunityId, String address) {
-        LOGGER.trace("Updating opportunity with id %d address to %s", opportunityId, address);
+        LOGGER.trace("Updating opportunity with id {} address to {}", opportunityId, address);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("opportunity_id", opportunityId);
@@ -128,7 +128,7 @@ public class OpportunitiesTableGateway {
     }
     
     public boolean updateOpportunityCity(int opportunityId, String city) {
-        LOGGER.trace("Updating opportunity with id %d city to %s", opportunityId, city);
+        LOGGER.trace("Updating opportunity with id {} city to {}", opportunityId, city);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("opportunity_id", opportunityId);
@@ -141,7 +141,7 @@ public class OpportunitiesTableGateway {
     }
     
     public boolean updateOpportunityState(int opportunityId, String state) {
-        LOGGER.trace("Updating opportunity with id %d state to %s", opportunityId, state);
+        LOGGER.trace("Updating opportunity with id {} state to {}", opportunityId, state);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("opportunity_id", opportunityId);
@@ -154,7 +154,7 @@ public class OpportunitiesTableGateway {
     }
     
     public boolean updateOpportunityZip(int opportunityId, String zip) {
-        LOGGER.trace("Updating opportunity with id %d zip to %s", opportunityId, zip);
+        LOGGER.trace("Updating opportunity with id {} zip to {}", opportunityId, zip);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("opportunity_id", opportunityId);
@@ -167,7 +167,7 @@ public class OpportunitiesTableGateway {
     }
     
     public boolean updateOpportunityUrl(int opportunityId, String url) {
-        LOGGER.trace("Updating opportunity with id %d url to %s", opportunityId, url);
+        LOGGER.trace("Updating opportunity with id {} url to {}", opportunityId, url);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("opportunity_id", opportunityId);
@@ -180,7 +180,7 @@ public class OpportunitiesTableGateway {
     }
 
     public boolean updateOpportunityStatus(int opportunityId, String status) {
-        LOGGER.trace("Updating opportunity with id %d status to %s", opportunityId, status);
+        LOGGER.trace("Updating opportunity with id {} status to {}", opportunityId, status);
 
         Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("opportunity_id", opportunityId);

@@ -13,7 +13,7 @@
 <body>
   <div class="container">
 
-    <form class="form-signin" method="post" action="/web/login">
+    <form class="form-signin" method="post" action="/login">
       <h2 class="form-signin-heading">Please sign in</h2>
       <label for="inputUsername" class="sr-only">Email address</label>
       <input id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus></input>
@@ -25,7 +25,8 @@
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
+      <!-- 
+      <input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" /> -->
     </form>
 
   </div> <!-- /container -->

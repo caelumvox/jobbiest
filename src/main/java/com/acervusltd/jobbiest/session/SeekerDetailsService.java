@@ -27,7 +27,7 @@ public class SeekerDetailsService implements UserDetailsService {
     @Transactional(readOnly=true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LOGGER.trace("Fetching details for seeker [%s]", username);
+        LOGGER.trace("Fetching details for seeker [{}]", username);
         
         Seeker seeker = seekerTableGateway.getSeekerByUsername(username);
         

@@ -30,7 +30,7 @@ public class SeekersService {
     @Path("/{seekerId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Seeker getSeeker(@PathParam("seekerId") Integer seekerId) {
-        LOGGER.trace("Seeker with id %d requested.", seekerId);
+        LOGGER.trace("Seeker with id {} requested.", seekerId);
 
         if (seekerId == null) {
             throw new RuntimeException("No seekerId supplied.  Not returning result.");
@@ -46,7 +46,7 @@ public class SeekersService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     public Seeker postSeeker(@PathParam("seekerId") Integer seekerId, MultivaluedMap<String, String> formParams) {
-        LOGGER.trace("Seeker with id %d requested.", seekerId);
+        LOGGER.trace("Seeker with id {} requested.", seekerId);
 
         if (seekerId == null) {
             throw new RuntimeException("No seekerId supplied.  Not returning result.");
@@ -81,7 +81,7 @@ public class SeekersService {
                         seeker.setUsername(value);
                         break;
                     default:
-                        LOGGER.warn("Unidentified parameter %s, ignoring.", key);
+                        LOGGER.warn("Unidentified parameter {}, ignoring.", key);
                 }
             }
         }
