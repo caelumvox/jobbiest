@@ -97,7 +97,7 @@
               $("#opportunity").serialize());
           posting.done(function(data){
               var opportunity_id = data.opportunityId;  
-              window.location.replace("/web/opportunity/" + opportunity_id);
+              window.location.replace("/web/opportunities/" + opportunity_id);
           });
           return false;
       });

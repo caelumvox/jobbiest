@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.acervusltd.jobbiest.db.SeekersTableGateway;
 import com.acervusltd.jobbiest.model.Seeker;
+import com.acervusltd.jobbiest.session.SeekerDetailsService;
 
 @Component
 @Path("/seekers")
@@ -86,6 +87,17 @@ public class SeekersService {
             }
         }
         seekerTableGateway.updateSeeker(seeker);
+        
+        // Update session seeker.
+        Seeker sessionSeeker = SeekerDetailsService.getSeeker();
+        sessionSeeker.setAddress(seeker.getAddress());
+        sessionSeeker.setCity(seeker.getCity());
+        sessionSeeker.setEmail(seeker.getEmail());
+        sessionSeeker.setFirstname(seeker.getFirstname());
+        sessionSeeker.setLastname(seeker.getLastname());
+        sessionSeeker.setPassword(seeker.getPassword());
+        sessionSeeker.setState(seeker.getState());
+        sessionSeeker.setUsername(seeker.getUsername());
 
         return seeker;
     }

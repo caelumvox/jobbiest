@@ -56,7 +56,7 @@
           <div class="form-group">
             <label for="inputState" class="col-md-2 control-label">State</label>
             <div class="col-md-1">
-              <input type="text" class="form-control" id="inputState" name="state" value="${state}">
+              <select class="form-control" name="state" id="inputState"></select>
             </div>
           </div>
           <div class="form-group">
@@ -83,6 +83,19 @@
   <%@include file="/resources/html/footer_includes.html"%>
   <script type="text/javascript">
   $(document).ready(function(){
+      var seeker_state = "${state}";
+      
+      // Fill in states form.
+      $.get("/rest/states", function(states_list) {
+          $.each(states_list, function(index, state) {
+              var option = $("<option>" + state.abbreviation + "</option>");
+              if (seeker_state == state.abbreviation) {
+                  option.attr("selected", "true");
+              }
+              $("#inputState").append(option);
+          });
+      }, "json");
+      
       $("#profile").submit(function(event) {
           $.post("/rest/seekers/" + ${seeker_id},
                   $("#profile").serialize());
