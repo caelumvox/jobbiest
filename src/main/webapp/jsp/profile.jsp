@@ -36,6 +36,12 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="inputPassword" class="col-md-2 control-label">Password</label>
+            <div class="col-md-3">
+              <input type="password" class="form-control" id="inputPassword" name="password" value="${password}">
+            </div>
+          </div>
+          <div class="form-group">
             <label for="inputEmail" class="col-md-2 control-label">Email</label>
             <div class="col-md-3">
               <input type="email" class="form-control" id="inputEmail" name="email" value="${email}">
@@ -71,12 +77,12 @@
               <button class="btn btn-default">Cancel</button>
             </div>
           </div>
-        </form>
-        <div class="form-group">
-          <div class="col-md-offset-2 col-md-10">
-            <a href="/web/logout"><button class="btn">Logout</button></a>
+          <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+              <a href="/web/logout">log me out</a>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>

@@ -81,6 +81,9 @@ public class SeekersService {
                     case "username":
                         seeker.setUsername(value);
                         break;
+                    case "password":
+                        seeker.setPassword(value);
+                        break;
                     default:
                         LOGGER.warn("Unidentified parameter {}, ignoring.", key);
                 }

@@ -18,6 +18,7 @@ public class SeekerController {
 
         model.addAttribute("seeker_id", seeker.getSeekerId());
         model.addAttribute("username", seeker.getUsername());
+        model.addAttribute("password", seeker.getPassword());
         model.addAttribute("email", seeker.getEmail());
         model.addAttribute("address", seeker.getAddress());
         model.addAttribute("city", seeker.getCity());
